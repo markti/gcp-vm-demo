@@ -15,6 +15,3 @@ dpkg -i packages-microsoft-prod.deb
 
 # Clean up
 rm packages-microsoft-prod.deb
-
-# Update packages
-apt-get update -y
