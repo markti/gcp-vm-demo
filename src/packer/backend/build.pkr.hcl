@@ -32,7 +32,18 @@ build {
     execute_command = local.execute_command
     inline = [
       "export DEBIAN_FRONTEND=noninteractive",
-      "apt-get update -y",
+      "apt-get update -y"
+    ]
+  }
+
+  provisioner "shell" {
+    execute_command = local.execute_command
+    script = "./scripts/check-lock.sh"
+  }
+
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
       "apt-get install dotnet-sdk-6.0 -y"
     ]
   }
