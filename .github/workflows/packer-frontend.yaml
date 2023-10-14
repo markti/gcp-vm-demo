@@ -79,7 +79,7 @@ jobs:
     - id: image-version
       name: Generate Version Number
       run: |
-        echo "version=$(date +'%Y.%m').${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+        echo "version=$(date +'%Y-%m')-${{ github.run_number }}" >> "$GITHUB_OUTPUT"
 
     - id: agent-ipaddress
       name: Check Path
