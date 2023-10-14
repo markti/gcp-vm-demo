@@ -11,10 +11,9 @@ echo $url
 wget $url -O packages-microsoft-prod.deb
 
 # Install Microsoft signing key and repository
+echo "DEB package installed"
 dpkg -i packages-microsoft-prod.deb
 
+echo "Cleaning up package file"
 # Clean up
 rm packages-microsoft-prod.deb
-
-# Update packages
-apt-get update -y

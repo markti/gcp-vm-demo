@@ -22,6 +22,24 @@ build {
     script = "./scripts/install-dotnet6-prereq.sh"
   }
 
+  provisioner "shell" {
+    execute_command = local.execute_command
+    script = "./scripts/check-lock.sh"
+  }
+
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
+      "export DEBIAN_FRONTEND=noninteractive",
+      "apt-get update -y"
+    ]
+  }
+
+  provisioner "shell" {
+    execute_command = local.execute_command
+    script = "./scripts/check-lock.sh"
+  }
+
   # install dotnet6
   provisioner "shell" {
     execute_command = local.execute_command
