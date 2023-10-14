@@ -1,8 +1,8 @@
 packer {
   required_plugins {
-    amazon = {
-      source  = "github.com/hashicorp/amazon"
-      version = "~> 1.2.6"
+    googlecompute = {
+      source  = "github.com/hashicorp/googlecompute"
+      version = "~> 1.1.2"
     }
   }
 }
