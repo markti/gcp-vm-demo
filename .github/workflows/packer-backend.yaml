@@ -100,6 +100,17 @@ jobs:
         pwd
         ls
 
+    - name: Create Secret File
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        # Create a local file with the secret value
+        echo -n "$GOOGLE_CREDENTIALS" > gcp.json
+
+        ls
+        pwd
+
     - id: setup
       name: Setup `packer`
       uses: hashicorp/setup-packer@main
@@ -109,7 +120,7 @@ jobs:
     - id: build
       name: Packer Build
       env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+        GOOGLE_APPLICATION_CREDENTIALS: "gcp.json"
         PKR_VAR_image_version: ${{ steps.image-version.outputs.version }}
         PKR_VAR_agent_ipaddress: ${{ steps.agent-ipaddress.outputs.ipaddress }}
       working-directory: ${{ env.WORKING_DIRECTORY }}
