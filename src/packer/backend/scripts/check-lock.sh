@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "######### Checking apt lock"
 echo "######### lslocks | grep '/var/lib/dpkg/lock-frontend'"
 lslocks | grep '/var/lib/dpkg/lock-frontend'

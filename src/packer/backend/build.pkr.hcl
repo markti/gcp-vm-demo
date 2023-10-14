@@ -24,7 +24,7 @@ build {
 
   provisioner "shell" {
     execute_command = local.execute_command
-    script = "./scripts/check_lock.sh"
+    script = "./scripts/check-lock.sh"
   }
 
   # install dotnet6
