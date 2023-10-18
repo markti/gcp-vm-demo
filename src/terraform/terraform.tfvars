@@ -1,4 +1,4 @@
-application_name       = "fleet-portal"
+application_name       = "fleet-ops"
 environment_name       = "dev"
 primary_region         = "us-central1"
 frontend_image_name    = "frontend-2023.10.91"

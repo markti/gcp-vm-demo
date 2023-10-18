@@ -9,7 +9,7 @@ terraform {
       version = "~> 2.3.2"
     }
   }
-  backend "s3" {
+  backend "gcs" {
   }
 }
 

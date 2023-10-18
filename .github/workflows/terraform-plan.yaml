@@ -28,12 +28,13 @@ jobs:
     - id: plan
       name: Terraform Plan
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ vars.AWS_ACCESS_KEY_ID }}
+        GOOGLE_BACKEND_CREDENTIALS: ${{ vars.GOOGLE_BACKEND_CREDENTIALS }}
+        GOOGLE_CREDENTIALS: ${{ vars.GOOGLE_CREDENTIALS }}
+        BACKEND_BUCKET_NAME: ${{ vars.BACKEND_BUCKET_NAME }}
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
         terraform init \
           -backend-config='bucket='$BACKEND_BUCKET_NAME \
-          -backend-config='region='$BACKEND_REGION \
-          -backend-config="key=gcp-vm-sample"
+          -backend-config="prefix=gcp-vm-sample"
 
         terraform plan
