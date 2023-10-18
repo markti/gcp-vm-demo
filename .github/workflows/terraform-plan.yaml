@@ -29,7 +29,7 @@ jobs:
       name: Terraform Plan
       env:
         GOOGLE_BACKEND_CREDENTIALS: ${{ vars.GOOGLE_BACKEND_CREDENTIALS }}
-        GOOGLE_CREDENTIALS: ${{ vars.GOOGLE_CREDENTIALS }}
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ vars.GOOGLE_CREDENTIALS }}
         BACKEND_BUCKET_NAME: ${{ vars.BACKEND_BUCKET_NAME }}
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
