@@ -1,4 +1,5 @@
 data "google_compute_zones" "available" {
+  region = var.primary_region
 }
 
 resource "random_shuffle" "az" {
