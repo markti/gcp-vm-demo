@@ -4,6 +4,9 @@ variable "application_name" {
 variable "environment_name" {
   type = string
 }
+variable "gcp_project" {
+  type = string
+}
 variable "primary_region" {
   type = string
 }
@@ -20,9 +23,6 @@ variable "backend_instance_type" {
   type = string
 }
 variable "domain_name" {
-  type = string
-}
-variable "ssh_public_key" {
   type = string
 }
 variable "vpc_cidr_block" {

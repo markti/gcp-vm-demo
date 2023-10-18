@@ -2,7 +2,7 @@ name: Terraform-Apply
 
 on:
   workflow_dispatch:
-  push:
+  pull_request:
     branches: 
     - main
     paths:
@@ -14,7 +14,7 @@ env:
 
 jobs:
 
-  terraform-apply:
+  terraform-plan:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -25,15 +25,33 @@ jobs:
       with:
         version: ${{ env.TERRAFORM_VERSION }}
 
-    - id: apply
-      name: Terraform Apply
+    - name: Create Secret File for Backend
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ vars.AWS_ACCESS_KEY_ID }}
+        GOOGLE_BACKEND_CREDENTIALS: ${{ secrets.GOOGLE_BACKEND_CREDENTIALS }}
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        # Create a local file with the secret value
+        echo -n "$GOOGLE_BACKEND_CREDENTIALS" > gcp-backend.json
+
+    - name: Create Secret File for Terraform
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        # Create a local file with the secret value
+        echo -n "$GOOGLE_APPLICATION_CREDENTIALS" > gcp-terraform.json
+
+    - id: plan
+      name: Terraform Plan
+      env:
+        GOOGLE_BACKEND_CREDENTIALS: gcp-backend.json
+        GOOGLE_APPLICATION_CREDENTIALS: gcp-terraform.json
+        BACKEND_BUCKET_NAME: ${{ vars.BACKEND_BUCKET_NAME }}
+        TF_VAR_gcp_project: ${{ vars.GOOGLE_PROJECT }}
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
         terraform init \
           -backend-config='bucket='$BACKEND_BUCKET_NAME \
-          -backend-config='region='$BACKEND_REGION \
-          -backend-config="key=gcp-vm-sample"
+          -backend-config="prefix=gcp-vm-sample"
 
         terraform apply -auto-approve
