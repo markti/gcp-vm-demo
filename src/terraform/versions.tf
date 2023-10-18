@@ -19,6 +19,7 @@ terraform {
 
 # Configure the GCP Provider
 provider "google" {
-  region = var.primary_region
+  project = var.gcp_project
+  region  = var.primary_region
 }
 
