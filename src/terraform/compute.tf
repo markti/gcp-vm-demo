@@ -5,7 +5,7 @@ resource "google_service_account" "default" {
 
 resource "google_compute_instance" "default" {
 
-  count = length(var.az_count)
+  count = var.az_count
 
   name         = "vm${var.application_name}-${var.environment_name}-frontend-${count.index}"
   machine_type = var.frontend_machine_type
