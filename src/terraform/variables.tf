@@ -22,9 +22,6 @@ variable "backend_instance_type" {
 variable "domain_name" {
   type = string
 }
-variable "ssh_public_key" {
-  type = string
-}
 variable "vpc_cidr_block" {
   type = string
 }
