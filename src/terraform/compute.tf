@@ -1,9 +1,9 @@
-/*
+
 resource "google_service_account" "default" {
   account_id   = "${var.application_name}-${var.environment_name}-sa"
   display_name = "Custom SA for VM Instance"
 }
-
+/*
 resource "google_compute_instance" "default" {
 
   count = var.az_count
