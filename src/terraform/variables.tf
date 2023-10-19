@@ -25,7 +25,7 @@ variable "backend_instance_type" {
 variable "domain_name" {
   type = string
 }
-variable "vpc_cidr_block" {
+variable "network_cidr_block" {
   type = string
 }
 variable "az_count" {
