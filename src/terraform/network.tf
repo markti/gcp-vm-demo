@@ -7,11 +7,11 @@ resource "google_compute_subnetwork" "frontend" {
   name          = "frontend"
   region        = var.primary_region
   network       = google_compute_network.main.self_link
-  ip_cidr_range = "cidrsubnet(var.network_cidr_block, 2, 1)"
+  ip_cidr_range = cidrsubnet(var.network_cidr_block, 2, 1)
 }
 resource "google_compute_subnetwork" "backend" {
   name          = "backend"
   region        = var.primary_region
   network       = google_compute_network.main.self_link
-  ip_cidr_range = "cidrsubnet(var.network_cidr_block, 2, 2)"
+  ip_cidr_range = cidrsubnet(var.network_cidr_block, 2, 2)
 }
