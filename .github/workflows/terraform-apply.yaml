@@ -42,7 +42,7 @@ jobs:
         echo -n "$GOOGLE_APPLICATION_CREDENTIALS" > gcp-terraform.json
 
     - id: plan
-      name: Terraform Plan
+      name: Terraform Apply
       env:
         GOOGLE_BACKEND_CREDENTIALS: gcp-backend.json
         GOOGLE_APPLICATION_CREDENTIALS: gcp-terraform.json
