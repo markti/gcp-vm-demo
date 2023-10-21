@@ -1,5 +1,3 @@
-data "google_project" "main" {
-}
 
 data "google_compute_zones" "available" {
   region = var.primary_region
