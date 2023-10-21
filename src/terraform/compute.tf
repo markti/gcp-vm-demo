@@ -3,6 +3,12 @@ resource "google_service_account" "default" {
   account_id   = "${var.application_name}-${var.environment_name}-sa"
   display_name = "Custom SA for VM Instance"
 }
+
+data "google_compute_image" "frontend" {
+  name = var.frontend_image_name
+}
+
+
 /*
 resource "google_compute_instance" "default" {
 
@@ -40,4 +46,5 @@ resource "google_compute_instance" "default" {
   }
 
 }
+
 */
