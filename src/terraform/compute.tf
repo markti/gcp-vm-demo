@@ -8,9 +8,7 @@ data "google_compute_image" "frontend" {
   name = var.frontend_image_name
 }
 
-
-/*
-resource "google_compute_instance" "default" {
+resource "google_compute_instance" "frontend" {
 
   count = var.az_count
 
@@ -18,11 +16,9 @@ resource "google_compute_instance" "default" {
   machine_type = var.frontend_machine_type
   zone         = local.azs_random[count.index]
 
-  tags = ["foo", "bar"]
-
   boot_disk {
     initialize_params {
-      image = var.frontend_image_name
+      image = data.google_compute_image.frontend.self_link
     }
   }
 
@@ -32,7 +28,7 @@ resource "google_compute_instance" "default" {
   }
 
   network_interface {
-    network = "default"
+    subnetwork = google_compute_subnetwork.frontend.self_link
 
     access_config {
       // Ephemeral public IP
@@ -46,5 +42,3 @@ resource "google_compute_instance" "default" {
   }
 
 }
-
-*/
