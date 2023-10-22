@@ -1,6 +1,6 @@
 resource "google_compute_firewall" "allow_ssh" {
   name    = "allow-ssh"
-  network = "default"
+  network = google_compute_network.main.self_link
 
   allow {
     protocol = "tcp"
@@ -8,5 +8,4 @@ resource "google_compute_firewall" "allow_ssh" {
   }
 
   source_ranges = ["0.0.0.0/0"] # Be cautious: This allows SSH from any IP. Adjust as necessary.
-  target_tags   = ["ssh-access"]
 }
