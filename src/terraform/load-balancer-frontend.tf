@@ -1,16 +1,8 @@
 resource "google_compute_forwarding_rule" "frontend" {
-  name   = "external-lb-${var.application_name}-${var.environment_name}-frontend"
-  region = var.primary_region
-
-  load_balancing_scheme = "EXTERNAL"
-  port_range            = 80
-  target                = google_compute_target_pool.frontend.self_link
-}
-
-resource "google_compute_router" "frontend" {
-  name    = "lb-${var.application_name}-${var.environment_name}-frontend"
-  network = google_compute_network.main.self_link
-  region  = google_compute_subnetwork.frontend.region
+  name       = "lb-${var.application_name}-${var.environment_name}-frontend"
+  region     = var.primary_region
+  port_range = 80
+  target     = google_compute_target_pool.frontend.self_link
 }
 
 resource "google_compute_target_pool" "frontend" {
@@ -26,7 +18,7 @@ resource "google_compute_target_pool" "frontend" {
 resource "google_compute_http_health_check" "frontend" {
   name               = "${var.application_name}-${var.environment_name}-frontend"
   request_path       = "/"
-  check_interval_sec = 1
-  timeout_sec        = 1
+  check_interval_sec = 5
+  timeout_sec        = 5
   port               = 5000
 }
