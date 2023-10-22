@@ -10,11 +10,11 @@ data "google_compute_image" "frontend" {
 
 resource "google_compute_instance" "frontend" {
 
-  count = var.az_count
+  count = var.frontend_instance_count
 
   name         = "vm${var.application_name}-${var.environment_name}-frontend-${count.index}"
   machine_type = var.frontend_machine_type
-  zone         = local.azs_random[count.index]
+  zone         = local.azs_random[count.index % 2]
 
   boot_disk {
     initialize_params {

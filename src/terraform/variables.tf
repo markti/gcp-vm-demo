@@ -16,11 +16,17 @@ variable "frontend_image_name" {
 variable "frontend_machine_type" {
   type = string
 }
+variable "frontend_instance_count" {
+  type = number
+}
 variable "backend_image_name" {
   type = string
 }
 variable "backend_instance_type" {
   type = string
+}
+variable "backend_instance_count" {
+  type = number
 }
 variable "domain_name" {
   type = string
