@@ -20,6 +20,6 @@ resource "google_compute_firewall" "frontend_allow_http" {
     ports    = ["5000"]
   }
 
-  source_ranges = ["0.0.0.0/0"]
+  source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
   target_tags   = ["frontend-access"]
 }
