@@ -5,7 +5,7 @@ resource "google_compute_router" "frontend" {
 }
 
 resource "google_compute_target_pool" "frontend" {
-  name = "instance-pool"
+  name = "${var.application_name}-${var.environment_name}-frontend"
 
   instances = google_compute_instance.frontend.*.self_link
 
