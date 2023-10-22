@@ -1,0 +1,52 @@
+name: Terraform-Destroy
+
+on:
+  workflow_dispatch:
+
+env:
+  TERRAFORM_VERSION: '1.5.7'
+  WORKING_DIRECTORY: "./src/terraform"
+
+jobs:
+
+  terraform-destroy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - id: setup
+      name: Setup `terraform`
+      uses: hashicorp/setup-terraform@main
+      with:
+        version: ${{ env.TERRAFORM_VERSION }}
+
+    - name: Create Secret File for Backend
+      env:
+        GOOGLE_BACKEND_CREDENTIALS: ${{ secrets.GOOGLE_BACKEND_CREDENTIALS }}
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        # Create a local file with the secret value
+        echo -n "$GOOGLE_BACKEND_CREDENTIALS" > gcp-backend.json
+
+    - name: Create Secret File for Terraform
+      env:
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        # Create a local file with the secret value
+        echo -n "$GOOGLE_APPLICATION_CREDENTIALS" > gcp-terraform.json
+
+    - id: plan
+      name: Terraform Destroy
+      env:
+        GOOGLE_BACKEND_CREDENTIALS: gcp-backend.json
+        GOOGLE_APPLICATION_CREDENTIALS: gcp-terraform.json
+        BACKEND_BUCKET_NAME: ${{ vars.BACKEND_BUCKET_NAME }}
+        TF_VAR_gcp_project: ${{ vars.GOOGLE_PROJECT }}
+      working-directory: ${{ env.WORKING_DIRECTORY }}
+      run: |
+        terraform init \
+          -backend-config='bucket='$BACKEND_BUCKET_NAME \
+          -backend-config="prefix=gcp-vm-sample"
+
+        terraform destroy -auto-approve
