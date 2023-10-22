@@ -20,5 +20,5 @@ resource "google_compute_http_health_check" "frontend" {
   request_path       = "/"
   check_interval_sec = 5
   timeout_sec        = 5
-  port               = 5000
+  port               = 5001
 }
