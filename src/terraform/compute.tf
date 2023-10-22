@@ -41,4 +41,6 @@ resource "google_compute_instance" "frontend" {
     scopes = ["cloud-platform"]
   }
 
+  tags = ["ssh-access"]
+
 }
