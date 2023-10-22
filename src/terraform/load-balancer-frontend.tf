@@ -10,7 +10,7 @@ resource "google_compute_target_pool" "frontend" {
   instances = google_compute_instance.frontend.*.self_link
 
   health_checks = [
-    google_compute_http_health_check.default.name,
+    google_compute_http_health_check.frontend.name,
   ]
 }
 
