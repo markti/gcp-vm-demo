@@ -1,8 +1,9 @@
 resource "google_compute_forwarding_rule" "frontend" {
-  name       = "lb-${var.application_name}-${var.environment_name}-frontend"
-  region     = var.primary_region
-  port_range = 80
-  target     = google_compute_target_pool.frontend.self_link
+  name                  = "lb-${var.application_name}-${var.environment_name}-frontend"
+  region                = var.primary_region
+  port_range            = 80
+  target                = google_compute_target_pool.frontend.self_link
+  load_balancing_scheme = "EXTERNAL"
 }
 
 resource "google_compute_target_pool" "frontend" {
