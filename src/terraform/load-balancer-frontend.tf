@@ -1,3 +1,11 @@
+resource "google_compute_forwarding_rule" "frontend" {
+  name   = "external-lb-${var.application_name}-${var.environment_name}-frontend"
+  region = var.primary_region
+
+  load_balancing_scheme = "EXTERNAL"
+  target                = google_compute_target_pool.frontend.self_link
+}
+
 resource "google_compute_router" "frontend" {
   name    = "lb-${var.application_name}-${var.environment_name}-frontend"
   network = google_compute_network.main.self_link
