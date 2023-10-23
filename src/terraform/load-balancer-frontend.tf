@@ -4,8 +4,11 @@ resource "google_compute_backend_service" "backend_service" {
   protocol    = "HTTP"
   timeout_sec = 10
 
-  backend {
-    group = google_compute_instance_group.instance_group.self_link
+  dynamic "backend" {
+    for_each = google_compute_instance_group.frontend
+    content {
+      group = backend.value.self_link
+    }
   }
 
   health_checks = [google_compute_http_health_check.frontend.self_link]
