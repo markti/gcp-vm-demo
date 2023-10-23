@@ -12,11 +12,15 @@ resource "google_compute_instance_group" "frontend" {
 
   count = var.az_count
 
+  named_port {
+    name = "http"
+    port = 5000
+  }
+
   name      = "frontend-${count.index}"
   zone      = local.azs_random[count.index]
   instances = local.zone_instances[local.azs_random[count.index]].instances
 }
-#local.zone_instances[local.azs_random[count.index]].instances
 
 locals {
   zone_instances = { for z in local.azs_random : z =>
