@@ -5,7 +5,7 @@ resource "google_compute_forwarding_rule" "main" {
   load_balancing_scheme = "EXTERNAL"
   port_range            = 80
   region                = var.primary_region
-  ip_protocol           = "tcp"
+  ip_protocol           = "TCP"
 }
 
 resource "google_compute_target_pool" "main" {
