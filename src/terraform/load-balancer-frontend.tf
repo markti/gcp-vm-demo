@@ -1,4 +1,6 @@
 
+
+/*
 resource "google_compute_forwarding_rule" "main" {
   name                  = "${var.application_name}-${var.environment_name}"
   target                = google_compute_target_pool.main.self_link
@@ -22,3 +24,4 @@ resource "google_compute_http_health_check" "main" {
   port         = 5000
   request_path = "/"
 }
+*/
