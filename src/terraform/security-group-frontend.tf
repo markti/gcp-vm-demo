@@ -21,7 +21,6 @@ resource "google_compute_firewall" "frontend_allow_http" {
   }
 
   source_ranges           = ["130.211.0.0/22", "35.191.0.0/16"]
-  target_tags             = ["frontend-access"]
   target_service_accounts = [google_service_account.main.email]
 }
 
