@@ -8,6 +8,26 @@ data "google_compute_image" "frontend" {
   name = var.frontend_image_name
 }
 
+resource "google_compute_instance_group" "frontend" {
+
+  count = var.az_count
+
+  name      = "frontend-${count.index}"
+  zone      = local.azs_random[count.index]
+  instances = []
+}
+
+output "zone_instances" {
+  value = { for z in locals.azs_random : z =>
+    {
+      instances = [
+        for i in google_compute_instance.frontend :
+        i.zone == z ? [i.self_link] : []
+      ]
+    }
+  }
+}
+
 resource "google_compute_instance" "frontend" {
 
   count = var.frontend_instance_count
