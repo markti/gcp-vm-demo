@@ -23,7 +23,7 @@ locals {
     {
       instances = flatten([
         for i in google_compute_instance.frontend :
-        i.zone == z ? i.self_link : []
+        i.zone == z ? [i.self_link] : []
       ])
     }
   }
