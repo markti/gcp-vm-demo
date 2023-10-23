@@ -14,7 +14,7 @@ resource "google_compute_instance_group" "frontend" {
 
   name      = "frontend-${count.index}"
   zone      = local.azs_random[count.index]
-  instances = [local.zone_instances[local.azs_random[count.index]].instances]
+  instances = local.zone_instances[local.azs_random[count.index]].instances
 }
 #local.zone_instances[local.azs_random[count.index]].instances
 
@@ -23,7 +23,7 @@ locals {
     {
       instances = flatten([
         for i in google_compute_instance.frontend :
-        i.zone == z ? [i.self_link] : []
+        i.zone == z ? i.self_link : []
       ])
     }
   }
