@@ -19,7 +19,7 @@ resource "google_compute_subnetwork" "backend" {
 resource "google_compute_router" "main" {
   name    = "router-${var.application_name}-${var.environment_name}"
   region  = var.primary_region
-  network = google_compute_network.network.self_link
+  network = google_compute_network.main.self_link
 }
 
 resource "google_compute_router_nat" "nat" {
