@@ -18,7 +18,7 @@ resource "google_compute_instance_group" "frontend" {
 }
 
 output "zone_instances" {
-  value = { for z in locals.azs_random : z =>
+  value = { for z in local.azs_random : z =>
     {
       instances = [
         for i in google_compute_instance.frontend :
