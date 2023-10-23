@@ -28,6 +28,13 @@ resource "google_compute_global_forwarding_rule" "frontend" {
   target      = google_compute_target_http_proxy.http_proxy.self_link
 }
 
+resource "google_compute_http_health_check" "frontend" {
+  name = "${var.application_name}-${var.environment_name}-hc"
+
+  port         = 5000
+  request_path = "/"
+}
+
 /*
 resource "google_compute_forwarding_rule" "main" {
   name                  = "${var.application_name}-${var.environment_name}"
