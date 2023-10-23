@@ -19,6 +19,6 @@ resource "google_compute_target_pool" "main" {
 resource "google_compute_http_health_check" "main" {
   name = "${var.application_name}-${var.environment_name}-hc"
 
-  port         = 5001
+  port         = 5000
   request_path = "/"
 }
