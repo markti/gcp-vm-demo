@@ -28,6 +28,7 @@ resource "google_compute_router_nat" "nat" {
   region                             = google_compute_router.main.region
   icmp_idle_timeout_sec              = 30
   min_ports_per_vm                   = 64
+  nat_ip_allocate_option             = "AUTO_ONLY"
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
   tcp_established_idle_timeout_sec   = 1200
   tcp_transitory_idle_timeout_sec    = 30
