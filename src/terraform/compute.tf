@@ -1,5 +1,5 @@
 
-resource "google_service_account" "default" {
+resource "google_service_account" "main" {
   account_id   = "${var.application_name}-${var.environment_name}-sa"
   display_name = "Custom SA for VM Instance"
 }
@@ -37,7 +37,7 @@ resource "google_compute_instance" "frontend" {
 
   service_account {
     # Google recommends custom service accounts that have cloud-platform scope and permissions granted via IAM Roles.
-    email  = google_service_account.default.email
+    email  = google_service_account.main.email
     scopes = ["cloud-platform"]
   }
 
