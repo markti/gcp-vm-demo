@@ -1,3 +1,4 @@
+/*
 resource "google_compute_firewall" "allow_ssh" {
   name    = "allow-ssh"
   network = google_compute_network.main.self_link
@@ -10,7 +11,8 @@ resource "google_compute_firewall" "allow_ssh" {
   source_ranges = ["0.0.0.0/0"] # Be cautious: This allows SSH from any IP. Adjust as necessary.
   target_tags   = ["ssh-access"]
 }
-
+*/
+/*
 resource "google_compute_firewall" "default-lb-fw" {
 
   name    = "${var.application_name}-${var.environment_name}-vm-service"
@@ -23,7 +25,7 @@ resource "google_compute_firewall" "default-lb-fw" {
 
   source_ranges = ["0.0.0.0/0"]
   target_tags   = ["allow-lb-service"]
-}
+}*/
 
 resource "google_compute_firewall" "default-hc-fw" {
 
