@@ -101,7 +101,7 @@ jobs:
 
     - name: Create Secret File
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.PACKER_CREDENTIALS }}
       working-directory: ${{ env.WORKING_DIRECTORY }}
       run: |
         # Create a local file with the secret value
