@@ -1,4 +1,6 @@
 resource "google_compute_backend_service" "backend_service" {
+
+  project     = google_project.main.project_id
   name        = "my-backend-service"
   port_name   = "http"
   protocol    = "HTTP"
@@ -15,16 +17,19 @@ resource "google_compute_backend_service" "backend_service" {
 }
 
 resource "google_compute_url_map" "url_map" {
+  project         = google_project.main.project_id
   name            = "my-url-map"
   default_service = google_compute_backend_service.backend_service.self_link
 }
 
 resource "google_compute_target_http_proxy" "http_proxy" {
+  project = google_project.main.project_id
   name    = "my-http-proxy"
   url_map = google_compute_url_map.url_map.self_link
 }
 
 resource "google_compute_global_forwarding_rule" "frontend" {
+  project     = google_project.main.project_id
   name        = "my-forwarding-rule"
   ip_protocol = "TCP"
   port_range  = "80"
@@ -32,8 +37,9 @@ resource "google_compute_global_forwarding_rule" "frontend" {
 }
 
 resource "google_compute_http_health_check" "frontend" {
-  name = "${var.application_name}-${var.environment_name}-hc"
 
+  project      = google_project.main.project_id
+  name         = "${var.application_name}-${var.environment_name}-hc"
   port         = 5000
   request_path = "/"
 }

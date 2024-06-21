@@ -1,5 +1,6 @@
 
 resource "google_service_account" "main" {
+  project      = google_project.main.project_id
   account_id   = "${var.application_name}-${var.environment_name}-sa"
   display_name = "Custom SA for VM Instance"
 }
@@ -12,14 +13,15 @@ resource "google_compute_instance_group" "frontend" {
 
   count = var.az_count
 
+  project   = google_project.main.project_id
+  name      = "frontend-${count.index}"
+  zone      = local.azs_random[count.index]
+  instances = local.zone_instances[local.azs_random[count.index]].instances
+
   named_port {
     name = "http"
     port = 5000
   }
-
-  name      = "frontend-${count.index}"
-  zone      = local.azs_random[count.index]
-  instances = local.zone_instances[local.azs_random[count.index]].instances
 }
 
 locals {
@@ -37,6 +39,7 @@ resource "google_compute_instance" "frontend" {
 
   count = var.frontend_instance_count
 
+  project      = google_project.main.project_id
   name         = "vm${var.application_name}-${var.environment_name}-frontend-${count.index}"
   machine_type = var.frontend_machine_type
   zone         = local.azs_random[count.index % 2]

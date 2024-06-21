@@ -29,6 +29,7 @@ resource "google_compute_firewall" "default-lb-fw" {
 
 resource "google_compute_firewall" "default-hc-fw" {
 
+  project = google_project.main.project_id
   name    = "${var.application_name}-${var.environment_name}-hc"
   network = google_compute_network.main.self_link
 
