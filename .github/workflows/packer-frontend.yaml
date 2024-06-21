@@ -117,7 +117,7 @@ jobs:
       name: Packer Build
       env:
         GOOGLE_APPLICATION_CREDENTIALS: "gcp.json"
-        PKR_VAR_gcp_project_id: ${{ vars.GOOGLE_PROJECT }}
+        PKR_VAR_gcp_project_id: ${{ vars.PACKER_PROJECT_ID }}
         PKR_VAR_image_version: ${{ steps.image-version.outputs.version }}
         PKR_VAR_agent_ipaddress: ${{ steps.agent-ipaddress.outputs.ipaddress }}
       working-directory: ${{ env.WORKING_DIRECTORY }}
